@@ -112,6 +112,9 @@ pl2 = pl1 + facet_grid(action_type ~ Party, labeller = labeller(action_type = la
 pl1
 pl2
 
+# For later
+d20_rolls = data_long |> filter(roll == '1d20')
+
 # Statistical properties of truly random dice rolls ------------------
 
 sample_dice_roll = function(n) {
@@ -131,7 +134,6 @@ hist(p)
 
 # Statistical properties of dice rolls -----------------
 
-d20_rolls = data_long |> filter(roll == '1d20')
 x = d20_rolls$roll_face_value
 table(x)
 hist(x, breaks = seq(0,20))
