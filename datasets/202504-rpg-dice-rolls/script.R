@@ -23,13 +23,15 @@ library(ggplot2)
 
 # Cleaning -----------------------------------------
 
+file = 'RollData.xlsx'
+
 data = list(
-    cleric  = read_excel('RollData.xlsx', sheet = 1, range = cell_limits(c(2, 1), c(NA, 4)), col_names = TRUE),
-    paladin = read_excel('RollData.xlsx', sheet = 1, range = cell_limits(c(2, 6), c(NA, 8)), col_names = TRUE),
-    shaman  = read_excel('RollData.xlsx', sheet = 1, range = cell_limits(c(2, 10), c(NA, 12)), col_names = TRUE),
-    hunter  = read_excel('RollData.xlsx', sheet = 1, range = cell_limits(c(2, 14), c(NA, 16)), col_names = TRUE),
-    centipede  = read_excel('RollData.xlsx', sheet = 1, range = cell_limits(c(2, 18), c(NA, 22)), col_names = TRUE),
-    giantfly  = read_excel('RollData.xlsx', sheet = 1, range = cell_limits(c(2, 24), c(NA, 27)), col_names = TRUE)
+    cleric  = read_excel(file, sheet = 1, range = cell_limits(c(2, 1), c(NA, 4)), col_names = TRUE),
+    paladin = read_excel(file, sheet = 1, range = cell_limits(c(2, 6), c(NA, 8)), col_names = TRUE),
+    shaman  = read_excel(file, sheet = 1, range = cell_limits(c(2, 10), c(NA, 12)), col_names = TRUE),
+    hunter  = read_excel(file, sheet = 1, range = cell_limits(c(2, 14), c(NA, 16)), col_names = TRUE),
+    centipede  = read_excel(file, sheet = 1, range = cell_limits(c(2, 18), c(NA, 22)), col_names = TRUE),
+    giantfly  = read_excel(file, sheet = 1, range = cell_limits(c(2, 24), c(NA, 27)), col_names = TRUE)
 )
 
 clean = function(df) {
@@ -152,3 +154,4 @@ split(d20_rolls, d20_rolls$Party) |>
         rolls = df$roll_face_value |> factor(levels = seq(1,20))
         chisq.test(table(rolls))
     })
+
