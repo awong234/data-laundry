@@ -1,0 +1,10 @@
+install.packages("pak")
+pak::pkg_install(
+  c(
+    "arcgis"
+    ,"dplyr"
+    ,"ggplot2"
+    ,"lubridate"
+    ,"hms"
+  )
+)
