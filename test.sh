@@ -1,46 +1,67 @@
 #!/bin/bash
 
-# Run through all the work and make sure no errors appear. Currently no support
-# for multiple R versions, although it is possible to do on windows. `rig` is an
-# option too.
+# Run through all the work and make sure no errors appear. Updated to support
+# per-project R versions with `rig`. Each directory has a .r-version file
+# (similar to uv .python-version file) indicating the version of R to use.
+# This is passed to rig to initialize with the right version.
 
-# Right now using R 4.4.2
+function run {
+    rig run -r "$(cat .r-version)" -f $1 > log.txt 2>&1
+}
 
 function report {
     if [ $? -ne 0 ]; then
         echo "Error in $(pwd)"
+        cat log.txt
     else
-        R --version > rversion.txt 2>&1
+        date > .testok
     fi
 }
 
 pushd datasets/202403-cuyahoga-county-voter-registration-locations
-Rscript sample_registration_locations.R > log.txt 2>&1
+run sample_registration_locations.R
 report
 popd
 
 pushd datasets/202404-tsa-passenger-volume
-Rscript clean_tsa.R > log.txt 2>&1
+run clean_tsa.R
 report
 popd
 
 pushd datasets/202405-fuel-economy
-Rscript sample.R > log.txt 2>&1
+run sample.R
 report
 popd
 
 pushd datasets/202406-nexrad
-Rscript nexrad.R > log.txt 2>&1
+run nexrad.R
 report
 popd
 
 pushd datasets/202410-hurrdat2
-Rscript fetch_hurricane_data.R > log.txt 2>&1
+run fetch_hurricane_data.R
 report
 popd
 
 # Needs to be manually inspected because it is a shiny app
 pushd datasets/202502-netflix-engagement
-Rscript app.R > log.txt 2>&1
+run app.R
+report
+popd
+
+pushd datasets/202504-rpg-dice-rolls/
+run script.R
+report
+popd
+
+pushd datasets/202510-cle-open-data/
+run setup.R
+run burials.R
+report
+popd
+
+pushd demos/202512-threed-rotations
+run setup.R
+run rotate_candy_cane.R
 report
 popd
