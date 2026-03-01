@@ -54,7 +54,7 @@ clean = function(df) {
         roll_characteristic = str_split(roll_type, '')[[1]]
         nrolls = roll_characteristic[1] |> as.integer()
         die_size = roll_characteristic[3] |> as.integer()
-        value_present = !is.na(df[, damage_col_name[i]])
+        value_present = !is.na(df[[damage_col_name[i]]])
         df = df |>
             mutate(
                 roll = case_when(value_present ~ roll_type, .default = roll),
