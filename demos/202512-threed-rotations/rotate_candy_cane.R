@@ -59,7 +59,7 @@ create_two_candy_canes = function(cc_orig, colors, option = c(1,2,3)) {
     ))
 }
 
-cc_data = create_two_candy_canes(cc_orig, colors, option = '1')
+cc_data = create_two_candy_canes(cc_orig, colors, option = '3')
 
 # Unpack the two candy canes and their colors
 cc = cc_data$cc1
